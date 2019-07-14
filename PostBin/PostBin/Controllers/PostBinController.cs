@@ -24,6 +24,16 @@ namespace PostBin.Controllers
             return post;
         }
 
+        [HttpGet("{id}/raw")]
+        public ActionResult<JObject> GetRaw(string id)
+        {
+            var post = DataSource.GetPostById(id);
+
+            if (post == null) return NotFound();
+
+            return post.Data;
+        }
+
         [HttpPost]
         public ActionResult<PostMetadata> Post([FromBody] JObject json)
         {
