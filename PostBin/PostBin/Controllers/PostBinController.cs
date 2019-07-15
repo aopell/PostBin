@@ -46,7 +46,7 @@ namespace PostBin.Controllers
             return DataSource.SavePost(data);
         }
 
-        [HttpDelete("{id}/{deleteId}")]
+        [HttpDelete("{id}/{deleteId}"), HttpGet("{id}/delete/{deleteId}")]
         public ActionResult Delete(string id, string deleteId)
         {
             return StatusCode((int)DataSource.DeletePost(id, deleteId));
