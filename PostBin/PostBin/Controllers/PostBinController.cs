@@ -12,22 +12,20 @@ namespace PostBin.Controllers
     [ApiController, Route("")]
     public class PostBinController : ControllerBase
     {
-        IDataSource DataSource = new FileSystemDataSource();
-
         [HttpGet("{id}")]
         public ActionResult<PostData> Get(string id)
         {
-            var post = DataSource.GetPostById(id);
+            var post = DataProvider.GetPostById(id);
 
             if (post == null) return NotFound();
 
             return post;
         }
-
+            
         [HttpGet("{id}/raw")]
-        public ActionResult<JObject> GetRaw(string id)
+        public ActionResult<JToken> GetRaw(string id)
         {
-            var post = DataSource.GetPostById(id);
+            var post = DataProvider.GetPostById(id);
 
             if (post == null) return NotFound();
 
@@ -35,21 +33,23 @@ namespace PostBin.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PostMetadata> Post([FromBody] JObject json)
+        public ActionResult<PostMetadata> Post([FromBody] JToken json, string title = null, string source = null)
         {
             PostData data = new PostData
             {
+                Title = title,
+                Source = source,
                 Data = json,
                 Timestamp = DateTimeOffset.Now
             };
 
-            return DataSource.SavePost(data);
+            return DataProvider.SavePost(data);
         }
 
         [HttpDelete("{id}/{deleteId}"), HttpGet("{id}/delete/{deleteId}")]
         public ActionResult Delete(string id, string deleteId)
         {
-            return StatusCode((int)DataSource.DeletePost(id, deleteId));
+            return StatusCode((int)DataProvider.DeletePost(id, deleteId));
         }
     }
 }

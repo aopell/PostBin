@@ -8,7 +8,9 @@ namespace PostBin.Models
 {
     public class PostData
     {
-        public JObject Data { get; set; }
+        public JToken Data { get; set; }
+        public string Title { get; set; }
+        public string Source { get; set; }
         public DateTimeOffset Timestamp { get; set; }
     }
 }

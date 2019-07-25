@@ -8,12 +8,12 @@ namespace PostBin.Data
 {
     public class SQLServerDataSource : IDataSource
     {
-        public StatusCode DeletePost(string id, string deleteId)
+        public void DeletePost(string id)
         {
             throw new NotImplementedException();
         }
 
-        public PostData GetPostById(string id)
+        public Post GetPostById(string id)
         {
             throw new NotImplementedException();
         }
@@ -23,7 +23,7 @@ namespace PostBin.Data
             throw new NotImplementedException();
         }
 
-        public PostMetadata SavePost(PostData data)
+        public void SavePost(Post p)
         {
             throw new NotImplementedException();
         }
